@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class ApiTester : MonoBehaviour
 {
@@ -19,16 +18,18 @@ public class ApiTester : MonoBehaviour
     {
         //ApiRequester.SetApiUrl(urlInputField.text);
         ApiRequester.SetApiUrl(urlInputField.text);
-        var result = await ApiRequester.GetRequest();
-        resultText.text = $"Last Request Result: \n{result}";
-        if (result == UnityWebRequest.Result.ConnectionError || result == UnityWebRequest.Result.ProtocolError)
-        {
-            resultText.color = Color.red;
-        }
-        else
+
+        RequestResult result = await ApiRequester.GetRequest();
+        resultText.text = $"Last Request Result: \n{result.HttpResult}";
+
+        if (result.Success)
         {
             resultText.color = Color.green;
             resultText.text += $"\n\n{ApiRequester.LastWeatherData}";
+        }
+        else
+        {
+            resultText.color = Color.red;
         }
     }
 }
