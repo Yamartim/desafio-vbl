@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float WeatherSpeedModifier = 1f;
+    float weatherSpeedModifier = 1f;
 
     float baseSpeed = 5f;
 
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            Vector3 move = direction * baseSpeed * WeatherSpeedModifier * Time.deltaTime;
+            Vector3 move = direction * baseSpeed * weatherSpeedModifier * Time.deltaTime;
             characterController.Move(move);
         }
     }
@@ -41,19 +41,19 @@ public class PlayerMovement : MonoBehaviour
         switch (condition)
         {
             case WeatherCondition.Sunny:
-                WeatherSpeedModifier = 1f;
+                weatherSpeedModifier = 1f;
                 break;
             case WeatherCondition.Clouded:
-                WeatherSpeedModifier = 0.8f;
+                weatherSpeedModifier = 0.8f;
                 break;
             case WeatherCondition.Foggy:
-                WeatherSpeedModifier = 0.8f;
+                weatherSpeedModifier = 0.8f;
                 break;
             case WeatherCondition.LightRain:
-                WeatherSpeedModifier = 0.6f;
+                weatherSpeedModifier = 0.6f;
                 break;
             case WeatherCondition.HeavyRain:
-                WeatherSpeedModifier = 0.4f;
+                weatherSpeedModifier = 0.4f;
                 break;
         }
     }

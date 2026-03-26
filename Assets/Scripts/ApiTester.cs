@@ -10,7 +10,7 @@ public class ApiTester : MonoBehaviour
     void Start()
     {
         //urlInputField.text = ApiRequester.ApiUrl;
-        urlInputField.text = ApiRequester.ApiUrl;
+        urlInputField.text = ApiRequester.apiUrl;
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class ApiTester : MonoBehaviour
         if (result.Success)
         {
             resultText.color = Color.green;
-            resultText.text += $"\n\n{ApiRequester.LastWeatherData}";
+            resultText.text += $"\n\n{ApiRequester.lastWeatherData}";
         }
         else
         {

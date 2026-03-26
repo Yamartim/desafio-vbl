@@ -4,23 +4,23 @@ using UnityEngine.Networking;
 
 public static class ApiRequester
 {
-    public static string ApiUrl { get; private set; } = "http://localhost:3002/v1/traffic/status";
-    public static WeatherData LastWeatherData { get; private set; }
+    public static string apiUrl { get; private set; } = "http://localhost:3002/v1/traffic/status";
+    public static WeatherData lastWeatherData { get; private set; }
 
     public static void SetApiUrl(string url)
     {
-        ApiUrl = url;
+        apiUrl = url;
         PlayerPrefs.SetString("ApiUrl", url);
     }
 
     public static async Task<RequestResult> GetRequest()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(ApiUrl))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl))
         {
             // Request and wait for the desired page.
             await webRequest.SendWebRequest();
 
-            string[] pages = ApiUrl.Split('/');
+            string[] pages = apiUrl.Split('/');
             int page = pages.Length - 1;
 
             RequestResult result;
@@ -37,8 +37,8 @@ public static class ApiRequester
                     break;
                 case UnityWebRequest.Result.Success:
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                    LastWeatherData = WeatherData.FromJson(webRequest.downloadHandler.text);
-                    result = new RequestResult(webRequest.result, LastWeatherData);
+                    lastWeatherData = WeatherData.FromJson(webRequest.downloadHandler.text);
+                    result = new RequestResult(webRequest.result, lastWeatherData);
                     break;
                 default:
                     Debug.LogError(pages[page] + ": Unknown Error");

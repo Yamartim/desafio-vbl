@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class LevelUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text CurrentWeatherUI;
-    [SerializeField] private TMP_Text NextWeatherUI;
-    [SerializeField] private TMP_Text NextWeatherTimerUI;
+    [SerializeField] private TMP_Text currentWeatherUI;
+    [SerializeField] private TMP_Text nextWeatherUI;
+    [SerializeField] private TMP_Text nextWeatherTimerUI;
 
-    [SerializeField] private TMP_Text ScoreBoard;
+    [SerializeField] private TMP_Text scoreBoard;
 
     //Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ScoreBoard.SetText($"Score: {GameManager.instance.CurrentScore}");
+        scoreBoard.SetText($"Score: {GameManager.instance.CurrentScore}");
     }
 
 
@@ -20,24 +20,24 @@ public class LevelUI : MonoBehaviour
     {
         if (currentWeather is null)
         {
-            CurrentWeatherUI.text = "Failed to fetch weather data.";
-            NextWeatherUI.text = "";
-            NextWeatherTimerUI.text = "";
+            currentWeatherUI.text = "Failed to fetch weather data.";
+            nextWeatherUI.text = "";
+            nextWeatherTimerUI.text = "";
             return;
         }
 
-        CurrentWeatherUI.text = currentWeather.current_status.ToString();
+        currentWeatherUI.text = currentWeather.current_status.ToString();
 
         if (!finalWeatherReached)
         {
             Status nextStatus = currentWeather.predicted_status[0].predictions;
-            NextWeatherUI.text = nextStatus.ToString();
+            nextWeatherUI.text = nextStatus.ToString();
 
         }
         else
         {
-            NextWeatherUI.color = Color.red;
-            NextWeatherUI.text = "None!\nHurry to the end of the level\nor it's game over!";
+            nextWeatherUI.color = Color.red;
+            nextWeatherUI.text = "None!\nHurry to the end of the level\nor it's game over!";
         }
 
     }
@@ -47,11 +47,11 @@ public class LevelUI : MonoBehaviour
         
         string minutes = ((int)timeToNextWeather / 60).ToString("D2");
         string seconds = ((int)timeToNextWeather % 60).ToString("D2");
-        NextWeatherTimerUI.text = $"{minutes}:{seconds}";
+        nextWeatherTimerUI.text = $"{minutes}:{seconds}";
 
         if (finalWeatherReached)
         {
-            NextWeatherTimerUI.color = Color.red;
+            nextWeatherTimerUI.color = Color.red;
         }
     }
 }

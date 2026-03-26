@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class WeatherBase : MonoBehaviour
 {
     Camera mainCamera;
-    [SerializeField] Color SkyColor;
+    [SerializeField] Color skyColor;
 
     void OnEnable()
     {
@@ -17,7 +17,7 @@ public abstract class WeatherBase : MonoBehaviour
 
     virtual protected void ApplyWeatherEffects()
     {
-        mainCamera.backgroundColor = SkyColor;
+        mainCamera.backgroundColor = skyColor;
     }
 
     virtual protected void RemoveWeatherEffects()

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Load API URL from PlayerPrefs or use default if not set
-        string ApiUrl = PlayerPrefs.GetString("ApiUrl", ApiRequester.ApiUrl);
+        string ApiUrl = PlayerPrefs.GetString("ApiUrl", ApiRequester.apiUrl);
         ApiRequester.SetApiUrl(ApiUrl);
         // Load High Score from PlayerPrefs
         HighScore = PlayerPrefs.GetInt("HighScore", HighScore);
