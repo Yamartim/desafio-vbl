@@ -44,8 +44,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnWeatherChange(WeatherCondition condition)
+    void OnWeatherChange(Status weatherStatus)
     {
+        WeatherCondition condition = weatherStatus.GetWeatherCondition();
         switch (condition)
         {
             case WeatherCondition.Sunny:
