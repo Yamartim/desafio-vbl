@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Car : MonoBehaviour, IPlayerInteractable
 {
-    public void Interact()
+    public async void Interact()
     {
-        GameManager.instance.GameOver();
+        await GameManager.instance.GameOver();
     }
 
 }

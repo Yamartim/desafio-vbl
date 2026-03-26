@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -10,13 +9,13 @@ public class MainMenuUI : MonoBehaviour
         scoreBoard.SetText($"Highest Score Reached: {GameManager.instance.HighScore}");
     }
 
-    public void StartGame()
+    public async void StartGame()
     {
-        GameManager.instance.GameStart();
+        await GameManager.instance.GameStart();
     }
 
-    public void ExitGame()
+    public async void ExitGame()
     {
-        GameManager.instance.GameQuit();
+        await GameManager.instance.GameQuit();
     }
 }

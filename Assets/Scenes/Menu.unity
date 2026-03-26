@@ -1709,6 +1709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5560269610284379859, guid: 29235b666bca133f286a15c35496733c, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8773073314823729815, guid: 29235b666bca133f286a15c35496733c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 926.55145
@@ -1748,6 +1752,10 @@ PrefabInstance:
     - target: {fileID: 8773073314823729815, guid: 29235b666bca133f286a15c35496733c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937636353703230290, guid: 29235b666bca133f286a15c35496733c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

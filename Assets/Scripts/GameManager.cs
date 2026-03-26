@@ -1,13 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using DG.Tweening;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance {get; private set;}
+    Image screenCover;
 
     public int HighScore { get; private set; } = 0;
     public int CurrentScore { get; private set; } = 0;
+    float fadeDuration = 0.5f;
 
 
     void Awake()
@@ -30,21 +35,28 @@ public class GameManager : MonoBehaviour
         HighScore = PlayerPrefs.GetInt("HighScore", HighScore);
     }
 
-// debugging shortcuts
+    async void Start()
+    {
+        screenCover = GetComponentInChildren<Image>();
+        await FadeOutScreenCover();
+
+    }
+
+    // debugging shortcuts
 #if UNITY_EDITOR
-    void Update()
+    async void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            GameStart();
+            await GameStart();
         }
         else if (Input.GetKeyDown(KeyCode.F2))
         {
-            GameOver();
+            await GameOver();
         }
         else if (Input.GetKeyDown(KeyCode.F3))
         {
-            GameQuit();
+            await GameQuit();
         }
     }
 #endif
@@ -66,33 +78,58 @@ public class GameManager : MonoBehaviour
 #endregion
 
 #region Game State Logic
-    public void GameStart()
+    public async Task GameStart()
     {
+        await FadeInScreenCover();
         Debug.Log("Game Started!");
         CurrentScore = 0;
         Cursor.visible = false;
         SceneManager.LoadScene("Game");
+        await FadeOutScreenCover();
     }
 
-    public void GameLevelComplete()
+    public async Task GameLevelComplete()
     {
+        await FadeInScreenCover();
         Debug.Log("Level Complete!");
         IncrementScore();
         SceneManager.LoadScene("Game");
+        await FadeOutScreenCover();
     }
 
-    public void GameOver()
+    public async Task GameOver()
     {
+        await FadeInScreenCover();
         Debug.Log("Game Over!");
         SetHighScore(CurrentScore);
         Cursor.visible = true;
         SceneManager.LoadScene("Menu");
+        await FadeOutScreenCover();
     }
 
-    public void GameQuit()
+    public async Task GameQuit()
     {
+        await FadeInScreenCover();
         Debug.Log("Game Quit!");
         Application.Quit();
+    }
+#endregion
+
+#region UI Logic
+    async Task FadeInScreenCover()
+    {
+        screenCover.gameObject.SetActive(true);
+        await screenCover.DOFade(1, fadeDuration)
+            .SetEase(Ease.InOutQuad)
+            .AsyncWaitForCompletion();
+    }
+
+    async Task FadeOutScreenCover()
+    {
+        await screenCover.DOFade(0, fadeDuration)
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() => screenCover.gameObject.SetActive(false))
+            .AsyncWaitForCompletion();
     }
 #endregion
 }

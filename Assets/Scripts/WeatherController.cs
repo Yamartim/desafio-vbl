@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 public class WeatherController : MonoBehaviour
 {
@@ -72,7 +73,7 @@ public class WeatherController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
         if (timeToNextWeather > 0)
         {
@@ -86,7 +87,7 @@ public class WeatherController : MonoBehaviour
                 }
                 else
                 {
-                    GameManager.instance.GameOver();
+                    await GameManager.instance.GameOver();
                 }
             }
         }
@@ -160,7 +161,7 @@ public class WeatherController : MonoBehaviour
     private void SetTimeToNextWeather()
     {
         timeToNextWeather = !finalWeatherReached
-            ? 10f//CurrentWeather.predicted_status[0].estimated_time * 0.001f
+            ? CurrentWeather.predicted_status[0].estimated_time * 0.001f
             : lastWeatherTimer;
         levelUI.TimerUIUpdate(timeToNextWeather, finalWeatherReached);
     }

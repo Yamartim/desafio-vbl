@@ -1,9 +1,10 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LevelEnd : MonoBehaviour, IPlayerInteractable
 {
-    public void Interact()
+    public async void Interact()
     {
-        GameManager.instance.GameLevelComplete();
+        await GameManager.instance.GameLevelComplete();
     }
 }
