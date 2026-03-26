@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 #endif
 
 #region Score Logic
-    public void SetHighScore(int score)
+    void SetHighScore(int score)
     {
         if (score > HighScore)
         {
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void IncrementScore()
+    void IncrementScore()
     {
         CurrentScore++;
     }
@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Started!");
         CurrentScore = 0;
         Cursor.visible = false;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void GameLevelComplete()
+    {
+        Debug.Log("Level Complete!");
+        IncrementScore();
         SceneManager.LoadScene("Game");
     }
 

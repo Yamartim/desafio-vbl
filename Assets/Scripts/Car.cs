@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public class Car : MonoBehaviour, IPlayerInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Interact()
     {
-        
+        GameManager.instance.GameOver();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -5,7 +5,7 @@ using TMPro;
 public class WeatherController : MonoBehaviour
 {
     public WeatherData CurrentWeather { get; private set; }
-    public static event Action<Status> OnWeatherChange;
+    public static event Action<WeatherCondition> OnWeatherChange;
 
     float timeToNextWeather;
     bool finalWeatherReached = false;
@@ -14,10 +14,8 @@ public class WeatherController : MonoBehaviour
     WeatherBase ActiveWeatherEffect;
 
 
-    [Header("UI References")]
-    [SerializeField] private TMP_Text CurrentWeatherUI;
-    [SerializeField] private TMP_Text NextWeatherUI;
-    [SerializeField] private TMP_Text NextWeatherTimerUI;
+    [Header("UI Reference")]
+    [SerializeField] private LevelUI levelUI;
 
     [Header("Weather Effects")]
     [SerializeField] private WeatherLightRain LightRainEffect;
@@ -69,7 +67,7 @@ public class WeatherController : MonoBehaviour
         }
 
         SetupWeatherEffects();
-        WeatherUIUpdate();
+        levelUI.WeatherUIUpdate(CurrentWeather, finalWeatherReached);
         SetTimeToNextWeather();
     }
 
@@ -79,7 +77,7 @@ public class WeatherController : MonoBehaviour
         if (timeToNextWeather > 0)
         {
             timeToNextWeather -= Time.deltaTime;
-            TimerUIUpdate();
+            levelUI.TimerUIUpdate(timeToNextWeather, finalWeatherReached);
             if (timeToNextWeather <= 0)
             {
                 if (!finalWeatherReached)
@@ -95,6 +93,26 @@ public class WeatherController : MonoBehaviour
     }
 
 #region Weather Logic
+
+    void SetupWeatherEffects()
+    {
+        Camera mainCamera = Camera.main;
+
+        LightRainEffect.AssignMainCamera(mainCamera);
+        HeavyRainEffect.AssignMainCamera(mainCamera);
+        CloudedEffect.AssignMainCamera(mainCamera);
+        SunnyEffect.AssignMainCamera(mainCamera);
+        FoggyEffect.AssignMainCamera(mainCamera);
+
+        LightRainEffect.gameObject.SetActive(false);
+        HeavyRainEffect.gameObject.SetActive(false);
+        CloudedEffect.gameObject.SetActive(false);
+        SunnyEffect.gameObject.SetActive(false);
+        FoggyEffect.gameObject.SetActive(false);
+
+        ActiveWeatherEffect.gameObject.SetActive(true);
+    }
+
     void WeatherChange()
     {
         if (CurrentWeather is null)
@@ -133,10 +151,10 @@ public class WeatherController : MonoBehaviour
 
         finalWeatherReached = CurrentWeather.predicted_status.Count == 0;
 
-        WeatherUIUpdate();
+        levelUI.WeatherUIUpdate(CurrentWeather, finalWeatherReached);
         SetTimeToNextWeather();
 
-        OnWeatherChange?.Invoke(CurrentWeather.current_status);
+        OnWeatherChange?.Invoke(CurrentWeather.current_status.GetWeatherCondition());
     }
 
     private void SetTimeToNextWeather()
@@ -144,68 +162,8 @@ public class WeatherController : MonoBehaviour
         timeToNextWeather = !finalWeatherReached
             ? 10f//CurrentWeather.predicted_status[0].estimated_time * 0.001f
             : lastWeatherTimer;
-        TimerUIUpdate();
+        levelUI.TimerUIUpdate(timeToNextWeather, finalWeatherReached);
     }
 #endregion
 
-#region UI Update Methods
-    void WeatherUIUpdate()
-    {
-        if (CurrentWeather is null)
-        {
-            CurrentWeatherUI.text = "Failed to fetch weather data.";
-            NextWeatherUI.text = "";
-            NextWeatherTimerUI.text = "";
-            return;
-        }
-
-        CurrentWeatherUI.text = CurrentWeather.current_status.ToString();
-
-        if (!finalWeatherReached)
-        {
-            Status nextStatus = CurrentWeather.predicted_status[0].predictions;
-            NextWeatherUI.text = nextStatus.ToString();
-
-        }
-        else
-        {
-            NextWeatherUI.color = Color.red;
-            NextWeatherUI.text = "None!\nHurry to the end of the level\nor it's game over!";
-        }
-
-        TimerUIUpdate();
-    }
-
-    private void TimerUIUpdate()
-    {
-        
-        string minutes = ((int)timeToNextWeather / 60).ToString("D2");
-        string seconds = ((int)timeToNextWeather % 60).ToString("D2");
-        NextWeatherTimerUI.text = $"{minutes}:{seconds}";
-
-        if (finalWeatherReached)
-        {
-            NextWeatherTimerUI.color = Color.red;
-        }
-    }
-#endregion
-
-    void SetupWeatherEffects()
-    {
-        Camera mainCamera = Camera.main;
-
-        LightRainEffect.AssignMainCamera(mainCamera);
-        HeavyRainEffect.AssignMainCamera(mainCamera);
-        CloudedEffect.AssignMainCamera(mainCamera);
-        SunnyEffect.AssignMainCamera(mainCamera);
-        FoggyEffect.AssignMainCamera(mainCamera);
-
-        LightRainEffect.gameObject.SetActive(false);
-        HeavyRainEffect.gameObject.SetActive(false);
-        CloudedEffect.gameObject.SetActive(false);
-        SunnyEffect.gameObject.SetActive(false);
-        FoggyEffect.gameObject.SetActive(false);
-
-        ActiveWeatherEffect.gameObject.SetActive(true);
-    }
 }
