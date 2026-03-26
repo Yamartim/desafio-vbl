@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 169762278523219624}
   - component: {fileID: 1520625602352495936}
   - component: {fileID: 1944196642079479570}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Wheel (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 2554961231576962448}
   - component: {fileID: 8735134552013480766}
   - component: {fileID: 3252343169116508736}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3007340362831592508}
   - component: {fileID: 1276097222925285680}
   - component: {fileID: 1146065785353248158}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Wheel (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 5745122995740763646}
   - component: {fileID: 6826766284925204708}
   - component: {fileID: 2918426687629358311}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6318014179270314316}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 2763157266819712220}
   - component: {fileID: 3908857630185378678}
   - component: {fileID: 2295190520948568669}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Wheel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,8 @@ GameObject:
   - component: {fileID: 2118914362188179443}
   - component: {fileID: 2187675270593255981}
   - component: {fileID: 8564209189064453267}
-  m_Layer: 3
+  - component: {fileID: 9122824451968711844}
+  m_Layer: 8
   m_Name: Car
   m_TagString: Car
   m_Icon: {fileID: 0}
@@ -513,7 +514,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6121819508497790377}
@@ -540,7 +541,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.5, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8564209189064453267
 MonoBehaviour:
@@ -554,6 +555,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99fe7cd3d00de85c9e463f95d11cbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!54 &9122824451968711844
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757401701158322502}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8786708454966203579
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +593,7 @@ GameObject:
   - component: {fileID: 6121819508497790377}
   - component: {fileID: 241906176857455614}
   - component: {fileID: 2347945874994184595}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public int CurrentScore { get; private set; } = 0;
     float fadeDuration = 0.5f;
 
+    bool isGameOver = false;
+
 
     void Awake()
     {
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
     async void Start()
     {
         screenCover = GetComponentInChildren<Image>();
+        screenCover.color = Color.black;
         await FadeOutScreenCover();
 
     }
@@ -80,6 +83,7 @@ public class GameManager : MonoBehaviour
 #region Game State Logic
     public async Task GameStart()
     {
+        isGameOver = false;
         await FadeInScreenCover();
         Debug.Log("Game Started!");
         CurrentScore = 0;
@@ -99,6 +103,11 @@ public class GameManager : MonoBehaviour
 
     public async Task GameOver()
     {
+        if (isGameOver)
+        {
+            return;
+        }
+        isGameOver = true;
         await FadeInScreenCover();
         Debug.Log("Game Over!");
         SetHighScore(CurrentScore);

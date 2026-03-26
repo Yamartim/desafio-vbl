@@ -4,9 +4,12 @@ public class PlayerMovement : MonoBehaviour
 {
     float weatherSpeedModifier = 1f;
 
-    float baseSpeed = 5f;
+    float baseSpeed = 7f;
+    float smoothTurnTime = 0.1f;
+    float turnVelocity;
 
     CharacterController characterController;
+    Camera mainCamera;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         WeatherController.OnWeatherChange += OnWeatherChange;
         characterController = GetComponent<CharacterController>();
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -31,8 +35,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            Vector3 move = direction * baseSpeed * weatherSpeedModifier * Time.deltaTime;
-            characterController.Move(move);
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, smoothTurnTime);
+            transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
+
+            Vector3 move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            characterController.Move(move.normalized * baseSpeed * weatherSpeedModifier * Time.deltaTime);
         }
     }
 
@@ -58,9 +66,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (collision.gameObject.TryGetComponent(out IPlayerInteractable interactable))
+        if (hit.gameObject.TryGetComponent(out IPlayerInteractable interactable))
         {
             interactable.Interact();
         }
