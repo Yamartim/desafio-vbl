@@ -4,7 +4,7 @@ using UnityEngine;
 public class WeatherController : MonoBehaviour
 {
     public WeatherData currentWeather { get; private set; }
-    public static event Action<WeatherCondition> OnWeatherChange;
+    public static event Action<Status> OnWeatherChange;
 
     float timeToNextWeather;
     bool finalWeatherReached = false;
@@ -153,7 +153,7 @@ public class WeatherController : MonoBehaviour
         levelUI.WeatherUIUpdate(currentWeather, finalWeatherReached);
         SetTimeToNextWeather();
 
-        OnWeatherChange?.Invoke(currentWeather.current_status.GetWeatherCondition());
+        OnWeatherChange?.Invoke(currentWeather.current_status);
     }
 
     private void SetTimeToNextWeather()
