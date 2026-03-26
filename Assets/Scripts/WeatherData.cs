@@ -6,21 +6,7 @@ using System;
 public class WeatherData
 {
     public Status current_status;
-
     public List<PredictedStatus> predicted_status;
-
-    public WeatherCondition GetWeatherCondition()
-    {
-        return current_status.weather switch
-        {
-            "Sunny" => WeatherCondition.Sunny,
-            "Clouded" => WeatherCondition.Clouded,
-            "Foggy" => WeatherCondition.Foggy,
-            "LightRain" => WeatherCondition.LightRain,
-            "HeavyRain" => WeatherCondition.HeavyRain,
-            _ => WeatherCondition.Sunny
-        };
-    }
 
     public static WeatherData FromJson(string json)
     {
@@ -41,11 +27,11 @@ public class WeatherData
     public override string ToString()
     {
         return $"Current Status:\n" +
-               $"Vehicle Density: {current_status.vehicleDensity}\n" +
-               $"Average Speed: {current_status.averageSpeed}\n" +
+               $"Vehicle Density: {current_status.vehicleDensity:F4}\n" +
+               $"Average Speed: {current_status.averageSpeed:F4}\n" +
                $"Weather: {current_status.weather}\n\n" +
                $"Predicted Statuses:\n" +
-               $"{string.Join("\n", predicted_status)}";
+               $"{string.Join("\n---------------\n", predicted_status)}";
     }
 }
 
@@ -53,14 +39,28 @@ public class WeatherData
 public class Status
 {
     public double vehicleDensity;
-
     public double averageSpeed;
-
     public string weather;
+
+
+    public WeatherCondition GetWeatherCondition()
+    {
+        return weather switch
+        {
+            "sunny" => WeatherCondition.Sunny,
+            "clouded" => WeatherCondition.Clouded,
+            "foggy" => WeatherCondition.Foggy,
+            "light rain" => WeatherCondition.LightRain,
+            "heavy rain" => WeatherCondition.HeavyRain,
+            _ => WeatherCondition.Sunny
+        };
+    }
 
     public override string ToString()
     {
-        return $"Vehicle Density: {vehicleDensity}, Average Speed: {averageSpeed}, Weather: {weather}";
+        return $"Vehicle Density: {vehicleDensity:F4}\n" +
+               $"Average Speed: {averageSpeed:F4}\n" +
+               $"Weather: {weather}";
     }
 }
 
@@ -68,12 +68,12 @@ public class Status
 public class PredictedStatus
 {
     public int estimated_time;
-
     public Status predictions;
 
     public override string ToString()
     {
-        return $"Estimated Time: {estimated_time}, Predictions: {predictions}";
+        return $"Estimated Time: {estimated_time}\n" +
+               $"Predictions: {predictions}";
     }
 }
 

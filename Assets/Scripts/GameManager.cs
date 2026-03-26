@@ -6,9 +6,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance {get; private set;}
 
-    public WeatherData CurrentWeatherData { get; private set; }
-
     public int HighScore { get; private set; } = 0;
+    public int CurrentScore { get; private set; } = 0;
 
 
     void Awake()
@@ -27,26 +26,66 @@ public class GameManager : MonoBehaviour
         // Load API URL from PlayerPrefs or use default if not set
         string ApiUrl = PlayerPrefs.GetString("ApiUrl", ApiRequester.ApiUrl);
         ApiRequester.SetApiUrl(ApiUrl);
+        // Load High Score from PlayerPrefs
+        HighScore = PlayerPrefs.GetInt("HighScore", HighScore);
     }
 
-    public void ChangeToMainMenu()
+// debugging shortcuts
+#if UNITY_EDITOR
+    void Update()
     {
-        SceneManager.LoadScene("Menu");
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            GameStart();
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            GameOver();
+        }
+        else if (Input.GetKeyDown(KeyCode.F3))
+        {
+            GameQuit();
+        }
+    }
+#endif
+
+#region Score Logic
+    public void SetHighScore(int score)
+    {
+        if (score > HighScore)
+        {
+            HighScore = score;
+            PlayerPrefs.SetInt("HighScore", HighScore);
+        }
     }
 
-    public void ChangeToGame()
+    public void IncrementScore()
     {
+        CurrentScore++;
+    }
+#endregion
+
+#region Game State Logic
+    public void GameStart()
+    {
+        Debug.Log("Game Started!");
+        CurrentScore = 0;
+        Cursor.visible = false;
         SceneManager.LoadScene("Game");
     }
 
-    public void QuitGame()
+    public void GameOver()
     {
+        Debug.Log("Game Over!");
+        SetHighScore(CurrentScore);
+        Cursor.visible = true;
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void GameQuit()
+    {
+        Debug.Log("Game Quit!");
         Application.Quit();
     }
-
-    public void SetHighScore(int score)
-    {
-        HighScore = score > HighScore ? score : HighScore;
-    }
-
+#endregion
 }
