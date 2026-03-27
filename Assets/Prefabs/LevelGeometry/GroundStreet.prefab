@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895219137930170150}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -30, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2397757753175187233}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &3900746621126655834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 5, z: 6}
-  m_Center: {x: 60, y: 0, z: 0}
+  m_Size: {x: 9, y: 5, z: 6}
+  m_Center: {x: 0, y: 0, z: 60}
 --- !u!114 &9112459749415477261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfa4418bf33681ce9320b755c6733d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  carLimit: 10
+  spawnFrequancy: 0.1
+  carPrefab: {fileID: 7757401701158322502, guid: 965bb5a8dfe12b428a0f0a52aa3adfb2, type: 3}
 --- !u!1 &1816950347688103681
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 1, z: 1}
+  m_LocalScale: {x: 14, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2397757753175187233}

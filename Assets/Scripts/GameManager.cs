@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour
         {
             await GameQuit();
         }
+        else if (Input.GetKeyDown(KeyCode.F4))
+        {
+            await GameLevelComplete();
+        }
     }
 #endif
 

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Car : MonoBehaviour, IPlayerInteractable
 {
-    Rigidbody rigidBody;
+    [SerializeField] float speed = 30f;
     [SerializeField] MeshRenderer[] meshRenderers;
-    [SerializeField] float speed = 10f;
+
+    Rigidbody rigidBody;
     double weatherSpeedModifier = 1.0;
 
     void Start()
@@ -18,7 +19,7 @@ public class Car : MonoBehaviour, IPlayerInteractable
 
     void FixedUpdate()
     {
-        rigidBody.MovePosition(transform.position + transform.forward * speed * (float)weatherSpeedModifier);
+        rigidBody.linearVelocity = transform.forward * speed * (float)weatherSpeedModifier;
     }
 
     public async void Interact()
@@ -42,12 +43,14 @@ public class Car : MonoBehaviour, IPlayerInteractable
 
     public void SetupCar()
     {
-        transform.forward = Vector3.forward; 
+        transform.forward = transform.parent.forward; 
 
         Color randomColor = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.5f, 1f);
         foreach (MeshRenderer mesh in meshRenderers)
         {
             mesh.material.color = randomColor;
         }
+
+        OnWeatherChange(ApiRequester.lastWeatherData.current_status);
     }
 }

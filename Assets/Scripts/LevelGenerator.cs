@@ -8,8 +8,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject groundSidewalkPrefab;
     [SerializeField] private GameObject groundFinishPrefab;
 
-    float firstPieceZ = 7.5f;
-    float finalPieceZ = 10f;
+    float finalPieceZ = 2.5f;
     float pieceZoffset = 5f;
     float streetChance = 0.7f;
 
@@ -26,10 +25,8 @@ public class LevelGenerator : MonoBehaviour
         {
             piecePrefab = (Random.value < streetChance) ? groundStreetPrefab : groundSidewalkPrefab;
 
-            // Randomly rotate the piece by 0 or 180 degrees to flip car spawn direction
-            Quaternion randomRotation = Quaternion.Euler(0f, Random.Range(0, 1) * 180f, 0f); 
-
-            GameObject newPiece = Instantiate(piecePrefab, new Vector3(0f, 0f, firstPieceZ + i * pieceZoffset), randomRotation);
+            GameObject newPiece = Instantiate(piecePrefab, new Vector3(0f, 0f, i * pieceZoffset), this.transform.rotation);
+            newPiece.transform.forward = Random.value > 0.5f ? Vector3.forward : Vector3.back;
             newPiece.transform.parent = this.transform;
         }
 

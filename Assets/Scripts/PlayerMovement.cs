@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float weatherSpeedModifier = 1f;
 
-    float baseSpeed = 7f;
-    float smoothTurnTime = 0.1f;
-    float turnVelocity;
-
+    [SerializeField] float baseSpeed = 7f;
+    [SerializeField] float smoothTurnTime = 0.1f;
     CharacterController characterController;
     Camera mainCamera;
+    float turnVelocity;
+    float weatherSpeedModifier = 1f;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
         WeatherController.OnWeatherChange += OnWeatherChange;
         characterController = GetComponent<CharacterController>();
         mainCamera = Camera.main;
+
+        OnWeatherChange(ApiRequester.lastWeatherData.current_status);
     }
 
     // Update is called once per frame
