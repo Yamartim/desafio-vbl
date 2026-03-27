@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// Static class that's responsible fot obtaining information from the API
 public static class ApiRequester
 {
     public static string apiUrl { get; private set; } = "http://localhost:3002/v1/traffic/status";
@@ -17,7 +18,6 @@ public static class ApiRequester
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl))
         {
-            // Request and wait for the desired page.
             await webRequest.SendWebRequest();
 
             string[] pages = apiUrl.Split('/');
@@ -51,6 +51,8 @@ public static class ApiRequester
     }
 }
 
+// Custom result type that is the sole information that can be obtained from this class
+// The objective was to encapsulate and only allow other objects to see what they strictly need to
 public class RequestResult
 {
     public bool Success { get; private set; }

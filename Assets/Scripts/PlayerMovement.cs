@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Main player class that handles input and responds to weather
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Player subscribes to the OnWeatherChange event to change its speed according to weather condition
         WeatherController.OnWeatherChange += OnWeatherChange;
         characterController = GetComponent<CharacterController>();
         mainCamera = Camera.main;
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         MovementInput();
     }
 
+    // Used the legacy input system to implement movement for simplicity
     void MovementInput()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -69,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // functions to handle player interaction with external objects
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.TryGetComponent(out IPlayerInteractable interactable))

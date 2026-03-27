@@ -10,6 +10,7 @@ public class Car : MonoBehaviour, IPlayerInteractable
 
     void Start()
     {
+        // Car subscribes to the OnWeatherChange event to change its speed according to weather
         WeatherController.OnWeatherChange += OnWeatherChange;
 
         rigidBody = GetComponent<Rigidbody>();
@@ -22,6 +23,7 @@ public class Car : MonoBehaviour, IPlayerInteractable
         rigidBody.linearVelocity = transform.forward * speed * (float)weatherSpeedModifier;
     }
 
+    // method for handling interactions with the player
     public async void Interact()
     {
         await GameManager.instance.GameOver();
@@ -36,11 +38,13 @@ public class Car : MonoBehaviour, IPlayerInteractable
     {
         SetupCar();
     }
+
     public void SetWeatherSpeedModifier(double modifier)
     {
         weatherSpeedModifier = modifier;
     }
 
+    // function to use during object pooling to give the illusion of multiple cars
     public void SetupCar()
     {
         transform.forward = transform.parent.forward; 

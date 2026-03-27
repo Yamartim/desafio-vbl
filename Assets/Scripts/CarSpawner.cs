@@ -16,6 +16,7 @@ public class CarSpawner : MonoBehaviour
     void Start()
     {
         inactiveCars = new Queue<GameObject>();
+        // CarSpawners subscribes to the OnWeatherChange event to modify its car spawning ratio according to traffic density
         WeatherController.OnWeatherChange += OnWeatherChange;
         OnWeatherChange(ApiRequester.lastWeatherData.current_status);
     }
@@ -28,6 +29,8 @@ public class CarSpawner : MonoBehaviour
         InvokeRepeating(nameof(SpawnCar), Random.value, 1f/spawnFrequancy * weatherSpawnModifier);
     }
 
+    // By using a queue o queue that stores the cars that already passed through we can reuse them
+    // This method is a lot more optimized for memory and garbage collection than instantiating and destroying gameObjects
     void SpawnCar()
     {
         if (carCount < carLimit)

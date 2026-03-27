@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+// UI class used for testing the API before the game starts
 public class ApiTester : MonoBehaviour
 {
     [SerializeField] private TMP_Text resultText;
@@ -13,10 +14,8 @@ public class ApiTester : MonoBehaviour
         urlInputField.text = ApiRequester.apiUrl;
     }
 
-    // Update is called once per frame
     public async void TestApi()
     {
-        //ApiRequester.SetApiUrl(urlInputField.text);
         ApiRequester.SetApiUrl(urlInputField.text);
 
         RequestResult result = await ApiRequester.GetRequest();

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+// Classes to model and parse the json data obtained through the API
 [Serializable]
 public class WeatherData
 {

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+// UI class for displaying API and gamplay information during the game
 public class LevelUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text currentWeatherUI;
@@ -20,24 +21,24 @@ public class LevelUI : MonoBehaviour
     {
         if (currentWeather is null)
         {
-            currentWeatherUI.text = "Failed to fetch weather data.";
-            nextWeatherUI.text = "";
-            nextWeatherTimerUI.text = "";
+            currentWeatherUI.SetText("Failed to fetch weather data.");
+            nextWeatherUI.SetText("");
+            nextWeatherTimerUI.SetText("");
             return;
         }
 
-        currentWeatherUI.text = currentWeather.current_status.ToString();
+        currentWeatherUI.SetText(currentWeather.current_status.ToString());
 
         if (!finalWeatherReached)
         {
             Status nextStatus = currentWeather.predicted_status[0].predictions;
-            nextWeatherUI.text = nextStatus.ToString();
+            nextWeatherUI.SetText(nextStatus.ToString());
 
         }
         else
         {
             nextWeatherUI.color = Color.red;
-            nextWeatherUI.text = "None!\nHurry to the end of the level\nor it's game over!";
+            nextWeatherUI.SetText("None!\nHurry to the end of the level\nor it's game over!");
         }
 
     }
@@ -47,7 +48,7 @@ public class LevelUI : MonoBehaviour
         
         string minutes = ((int)timeToNextWeather / 60).ToString("D2");
         string seconds = ((int)timeToNextWeather % 60).ToString("D2");
-        nextWeatherTimerUI.text = $"{minutes}:{seconds}";
+        nextWeatherTimerUI.SetText($"{minutes}:{seconds}");
 
         if (finalWeatherReached)
         {

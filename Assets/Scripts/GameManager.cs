@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Threading.Tasks;
 
+// GameManager as the name implies is the main object for handling the macro game logic 
+// such as changing scenes and saving persistant data
 public class GameManager : MonoBehaviour
 {
 
@@ -129,6 +131,8 @@ public class GameManager : MonoBehaviour
 #endregion
 
 #region UI Logic
+
+    // Demonstrating Tweening, a very useful library to deal with interpolating values with clean code
     async Task FadeInScreenCover()
     {
         screenCover.gameObject.SetActive(true);

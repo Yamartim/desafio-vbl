@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Base class for all the weather types that happen during the game
 public abstract class WeatherBase : MonoBehaviour
 {
     Camera mainCamera;
