@@ -2,7 +2,7 @@
 
 This is a challenge to create a frogger like in Unity game where the environment conditions are obtained through a HTTP requests.
 
-[Play the game in your browser here.](yamartim.github.io)
+[Play the game in your browser here.](https://yamartim.github.io/desafio-vbl/)
 
 Unity version: 6000.4.0f1
 
