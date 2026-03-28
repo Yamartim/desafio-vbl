@@ -1,20 +1,16 @@
 # VBL Smart City Simulation – Interactive Urban Mobility
 
-This is a challenge to create a frogger like in Unity game where the environment conditions are obtained through a HTTP requests.
+This is the project done for a challenge to create a frogger like in Unity game where the environment conditions are obtained through HTTP requests.
 
-[Play the game in your browser here.](https://yamartim.github.io/desafio-vbl/)
+## How to Play
 
-Unity version: 6000.4.0f1
+[Play the game in your browser here](https://yamartim.github.io/desafio-vbl/) or download the linux binary in the releases section and run it.
 
-Non built-in Unity packages used:
+In order to play the game, the "VBL Traffic & Weather API" is required to be running.
 
-- DOTween
-- Cinemachine
-
-To simulate the API, the software used was Mockoon with the following openAPI import:
+To simulate the API, the recommended software is Mockoon with the following openAPI import:
 
 ```yaml
-
 openapi: 3.0.0
 info:
   title: VBL Traffic & Weather API
@@ -62,5 +58,16 @@ components:
         weather:
           type: string
           enum: [sunny, clouded, foggy, light rain, heavy rain]
-
 ```
+
+It is recommended to run the api at the address `http://localhost:3002/` as this is the default configured in the game. 
+
+You can also set a different address and check if the API is reachable and working as the game expects in the main menu.
+
+## How to edit and build the game in Unity
+
+1. Install Unity version 6000.4.0f1
+
+2. Through the Unity editor package manager, download the following packages
+    - **Cinemachine** through the Unity registry
+    - **DOTween** through the Unity asset store, it's necessary to add the package into your account first through its [page in the asset store](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676)
